@@ -4,4 +4,5 @@ class AppAssets {
   static const String logoHorizontal = "assets/images/logo2.png";
   static const String mailIcon = "assets/images/email_icon.png";
   static const String passIcon = "assets/images/pass_icon.png";
+  static const String googleIcon = "assets/images/googleLogo.png";
 }
