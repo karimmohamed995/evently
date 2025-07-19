@@ -16,6 +16,10 @@ dependencies:
 
   
   cupertino_icons: ^1.0.8
+  flutter_localizations:
+    sdk: flutter
+  intl: any
+  animated_toggle_switch: ^0.8.5
 
 dev_dependencies:
   flutter_test:
@@ -26,7 +30,7 @@ dev_dependencies:
 
 
 flutter:
-
+  generate: true
  
   uses-material-design: true
 

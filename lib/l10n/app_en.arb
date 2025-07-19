@@ -1,0 +1,10 @@
+{
+    "emailHint" : "Email",
+    "passwordHint" : "Password",
+    "forgetPassword" : "Forget Password",
+    "createAccount" : " Create Account ?",
+    "loginButton" : "Login",
+    "dontHaveAccount" : "Dont Have Account ?",
+    "orText" : "Or",
+    "loginWithGoogle" : "Login with Google"
+}

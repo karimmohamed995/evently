@@ -1,0 +1,9 @@
+{
+    "emailHint": "البريد الالكتروني",
+    "passwordHint" : "كلمة المرور",
+    "forgetPassword" : "نسيت كلمة المرور",
+    "createAccount" : "انشاء حساب",
+    "orText" : "أو",
+    "dontHaveAccount" : "ليس لديك حساب ؟",
+    "loginWithGoogle" : "تسجيل الدخول باستخدام جوجل"
+}

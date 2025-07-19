@@ -1,3 +1,4 @@
+import 'package:evently/l10n/app_localizations.dart';
 import 'package:evently/ui/utilities/app_assets.dart';
 import 'package:evently/ui/utilities/app_colors.dart';
 import 'package:evently/ui/widgets/custom_button.dart';
@@ -12,9 +13,11 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  late AppLocalizations l10n;
   // bool obscureText = true;
   @override
   Widget build(BuildContext context) {
+    l10n = AppLocalizations.of(context)!;
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -52,19 +55,22 @@ class _LoginState extends State<Login> {
   );
 
   buildEmailTextField() => Container(
-    child: CustomTextField(hint: "Email", prefixIcon: AppAssets.mailIcon),
+    child: CustomTextField(
+      hint: l10n.emailHint,
+      prefixIcon: AppAssets.mailIcon,
+    ),
   );
 
   buildPasswordTextField() => Container(
     child: CustomTextField(
-      hint: "Password",
+      hint: l10n.passwordHint,
       prefixIcon: AppAssets.passIcon,
       isPassword: true,
     ),
   );
 
   buildForgetPasswordText(BuildContext context) => Text(
-    "Forget Password?",
+    l10n.forgetPassword,
     textAlign: TextAlign.end,
     style: Theme.of(context).textTheme.labelMedium!.copyWith(
       fontStyle: FontStyle.italic,
@@ -72,17 +78,14 @@ class _LoginState extends State<Login> {
     ),
   );
 
-  buildLoginButton() => CustomButton(text: "Login", onClick: () {});
+  buildLoginButton() => CustomButton(text: l10n.loginButton, onClick: () {});
 
   buildSignUpText() => Row(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
+      Text(l10n.dontHaveAccount, style: Theme.of(context).textTheme.labelSmall),
       Text(
-        "Dont't have an account ? ",
-        style: Theme.of(context).textTheme.labelSmall,
-      ),
-      Text(
-        "Create account",
+        l10n.createAccount,
         style: Theme.of(context).textTheme.labelMedium!.copyWith(
           fontStyle: FontStyle.italic,
           decoration: TextDecoration.underline,
@@ -94,14 +97,14 @@ class _LoginState extends State<Login> {
   buildOrRow() => Row(
     children: [
       Expanded(child: Divider(indent: 24, endIndent: 24)),
-      Text("Or", style: Theme.of(context).textTheme.labelMedium),
+      Text(l10n.orText, style: Theme.of(context).textTheme.labelMedium),
       Expanded(child: Divider(indent: 24, endIndent: 24)),
     ],
   );
 
   buildGoogleLogin() => CustomButton(
     image: Image.asset(AppAssets.googleIcon, width: 24, height: 24),
-    text: "Login With Google",
+    text: l10n.loginWithGoogle,
     onClick: () {},
     backgroundcolor: AppColors.white,
 
