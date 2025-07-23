@@ -40,6 +40,11 @@ abstract final class AppTheme {
       color: AppColors.purple,
       fontWeight: FontWeight.w500,
     ),
+    labelSmall: TextStyle(
+      fontSize: 16,
+      color: AppColors.white,
+      fontWeight: FontWeight.w500,
+    ),
   );
 
   static final lightDefaultTextBorder = OutlineInputBorder(
@@ -88,9 +93,10 @@ abstract final class AppTheme {
     ),
     dividerTheme: DividerThemeData(color: AppColors.purple, thickness: 1),
   );
+
   static ThemeData darkTheme = ThemeData(
+    scaffoldBackgroundColor: AppColors.darkPurple,
     primaryColor: AppColors.purple,
-    scaffoldBackgroundColor: AppColors.white,
     textTheme: _darkTextTheme,
     appBarTheme: AppBarTheme(
       backgroundColor: AppColors.purple,
@@ -103,7 +109,15 @@ abstract final class AppTheme {
     ),
     colorScheme: ColorScheme.fromSeed(seedColor: AppColors.purple),
     elevatedButtonTheme: ElevatedButtonThemeData(
-      style: ElevatedButton.styleFrom(backgroundColor: AppColors.purple),
+      style: ElevatedButton.styleFrom(
+        // backgroundColor: AppColors.purple,
+        padding: EdgeInsets.symmetric(vertical: 16),
+        textStyle: TextStyle(
+          color: AppColors.darkPurple,
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
+        ),
+      ),
     ),
     inputDecorationTheme: InputDecorationTheme(
       border: darkDefaultTextBorder,
