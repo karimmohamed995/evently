@@ -1,0 +1,167 @@
+import 'package:evently/model/category_dm.dart';
+import 'package:evently/ui/utilities/app_assets.dart';
+import 'package:evently/ui/utilities/app_colors.dart';
+import 'package:evently/ui/widgets/category_tabs.dart';
+import 'package:evently/ui/widgets/custom_button.dart';
+import 'package:evently/ui/widgets/custom_text_field.dart';
+import 'package:flutter/material.dart';
+import 'package:evently/l10n/app_localizations.dart';
+
+class AddEvent extends StatefulWidget {
+  const AddEvent({super.key});
+
+  @override
+  State<AddEvent> createState() => _AddEventState();
+}
+
+class _AddEventState extends State<AddEvent> {
+  late AppLocalizations l10n;
+  @override
+  Widget build(BuildContext context) {
+    l10n = AppLocalizations.of(context)!;
+    return Scaffold(
+      appBar: buildAppBar(),
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          /// de 3shan kol el msafat el bnhom sabta gher kda ahot sized box mben kol haga wel tanya
+          spacing: 16,
+
+          children: [
+            buildCategoryImage(),
+            buildCategoryTabs(),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.start,
+            //   children: [
+            //     Text(
+            //       "Title",
+            //       style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+            //     ),
+            //   ],
+            // ),
+            buildTitleTextField(),
+            buildDescriptionTextField(),
+            buildEventDate(),
+            buildEventTime(),
+            buildEventLocation(),
+            Spacer(),
+            buildAddEventButton(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  buildAppBar() => AppBar(title: Text("Create Event"));
+
+  buildCategoryImage() => ClipRRect(
+    borderRadius: BorderRadius.circular(16),
+    child: Image.asset(
+      AppAssets.logoHorizontal,
+      height: MediaQuery.of(context).size.height * 0.25,
+    ),
+  );
+
+  buildCategoryTabs() => CategoryTabs(
+    categories: CategoryDM.createEventsCategories,
+    onTabSelected: (category) {
+      print(category.title);
+    },
+    selectedTabBg: AppColors.purple,
+    selectedTabTextColor: AppColors.white,
+    unselectedTabBg: AppColors.white,
+    unselectedTabTextColor: AppColors.purple,
+  );
+
+  buildTitleTextField() => Column(
+    crossAxisAlignment: CrossAxisAlignment.stretch,
+    children: [
+      Text(
+        "Title",
+        style: TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
+          color: AppColors.black,
+        ),
+      ),
+      SizedBox(height: 8),
+      CustomTextField(
+        // hint: l10n.passwordHint,
+        hint: "Event Title",
+        prefixIcon: AppAssets.noteIc,
+      ),
+    ],
+  );
+
+  buildDescriptionTextField() => Column(
+    crossAxisAlignment: CrossAxisAlignment.stretch,
+    children: [
+      Text(
+        "Description",
+        style: TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
+          color: AppColors.black,
+        ),
+      ),
+      SizedBox(height: 8),
+      CustomTextField(
+        // hint: l10n.passwordHint,
+        hint: "Description",
+        minLines: 5,
+      ),
+    ],
+  );
+
+  buildEventDate() => Row(
+    children: [
+      Icon(Icons.calendar_month),
+      SizedBox(width: 8),
+      Text(
+        "Event Date",
+        style: TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
+          color: AppColors.black,
+        ),
+      ),
+      Spacer(),
+      Text(
+        "Choose Date",
+        style: TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
+          color: AppColors.purple,
+        ),
+      ),
+    ],
+  );
+
+  buildEventTime() => Row(
+    children: [
+      Icon(Icons.access_time),
+      SizedBox(width: 8),
+      Text(
+        "Event Time",
+        style: TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
+          color: AppColors.black,
+        ),
+      ),
+      Spacer(),
+      Text(
+        "Choose Time",
+        style: TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
+          color: AppColors.purple,
+        ),
+      ),
+    ],
+  );
+
+  buildEventLocation() => Container();
+
+  buildAddEventButton() => CustomButton(text: "Add Event", onClick: () {});
+}

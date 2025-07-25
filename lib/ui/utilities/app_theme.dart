@@ -60,12 +60,12 @@ abstract final class AppTheme {
     scaffoldBackgroundColor: AppColors.white,
     textTheme: _lightTextTheme,
     appBarTheme: AppBarTheme(
-      backgroundColor: AppColors.purple,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadiusGeometry.only(
-          bottomLeft: Radius.circular(16),
-          bottomRight: Radius.circular(16),
-        ),
+      backgroundColor: Colors.transparent,
+      centerTitle: true,
+      titleTextStyle: TextStyle(
+        fontSize: 22,
+        fontWeight: FontWeight.w400,
+        color: AppColors.purple,
       ),
     ),
     // colorScheme: ColorScheme.fromSeed(seedColor: AppColors.purple),
