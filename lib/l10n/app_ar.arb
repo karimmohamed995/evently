@@ -6,5 +6,9 @@
     "loginButton" : "تسجيل الدخول",
     "orText" : "أو",
     "dontHaveAccount" : "ليس لديك حساب ؟",
-    "loginWithGoogle" : "تسجيل الدخول باستخدام جوجل"
+    "loginWithGoogle" : "تسجيل الدخول باستخدام جوجل",
+    "nameHint" : "الأسم",
+    "alreadyHaveAccount" : "بالفعل لديك حساب",
+    "createAccountt" : "انشاء حساب",
+    "rePassword" : "اعادة كلمةالمرور"
 }

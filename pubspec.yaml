@@ -21,6 +21,8 @@ dependencies:
   intl: any
   animated_toggle_switch: ^0.8.5
   provider: ^6.1.5
+  firebase_core: ^2.30.0
+  firebase_auth: ^4.16.0
 
 dev_dependencies:
   flutter_test:

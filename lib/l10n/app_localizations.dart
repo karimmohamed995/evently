@@ -119,7 +119,7 @@ abstract class AppLocalizations {
   /// No description provided for @createAccount.
   ///
   /// In en, this message translates to:
-  /// **' Create Account ?'**
+  /// **' Create Account ? '**
   String get createAccount;
 
   /// No description provided for @loginButton.
@@ -145,6 +145,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Login with Google'**
   String get loginWithGoogle;
+
+  /// No description provided for @nameHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get nameHint;
+
+  /// No description provided for @alreadyHaveAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Already Have Account?'**
+  String get alreadyHaveAccount;
+
+  /// No description provided for @createAccountt.
+  ///
+  /// In en, this message translates to:
+  /// **'Create Account'**
+  String get createAccountt;
+
+  /// No description provided for @rePassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Re Password'**
+  String get rePassword;
 }
 
 class _AppLocalizationsDelegate

@@ -4,8 +4,11 @@ import 'package:evently/ui/providers/language_provider.dart';
 import 'package:evently/ui/providers/theme_provider.dart';
 import 'package:evently/ui/utilities/app_assets.dart';
 import 'package:evently/ui/utilities/app_colors.dart';
+import 'package:evently/ui/utilities/app_routes.dart';
+import 'package:evently/ui/utilities/dialog_utils.dart';
 import 'package:evently/ui/widgets/custom_button.dart';
 import 'package:evently/ui/widgets/custom_text_field.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -17,6 +20,8 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
   int selectedIndex = 0;
   final List<String> flags = ['assets/images/EG.png', 'assets/images/LR.png'];
   late AppLocalizations l10n;
@@ -69,6 +74,7 @@ class _LoginState extends State<Login> {
     child: CustomTextField(
       hint: l10n.emailHint,
       prefixIcon: AppAssets.mailIcon,
+      controller: emailController,
     ),
   );
 
@@ -77,6 +83,7 @@ class _LoginState extends State<Login> {
       hint: l10n.passwordHint,
       prefixIcon: AppAssets.passIcon,
       isPassword: true,
+      controller: passwordController,
     ),
   );
 
@@ -92,17 +99,56 @@ class _LoginState extends State<Login> {
     ),
   );
 
-  buildLoginButton() => CustomButton(text: l10n.loginButton, onClick: () {});
+  buildLoginButton() => CustomButton(
+    text: l10n.loginButton,
+    onClick: () async {
+      showLoading(context);
+      await Future.delayed(Duration(seconds: 2));
+
+      // showLoading(context);
+      try {
+        var userCredential = await FirebaseAuth.instance
+            .signInWithEmailAndPassword(
+              email: emailController.text,
+              password: passwordController.text,
+            );
+        Navigator.pop(context); // hide loading
+        Navigator.push(context, AppRoutes.home);
+      } on FirebaseAuthException catch (e) {
+        // var message = "email or password wrong";
+        var message =
+            e.message ?? "Something went wrong, Please try again later!";
+        // if (e.code == 'user-not-found') {
+        //   print('No user found for that email.');
+        // } else if (e.code == 'wrong-password') {
+        //   print('Wrong password provided for that user.');
+        // }
+        Navigator.pop(context);
+        showMessage(context, content: message, posBtnTitle: "Ok");
+      }
+      // showMessage(
+      //   context,
+      //   title: "title",
+      //   content: "Content",
+      //   posBtnTitle: "ok",
+      // );
+    },
+  );
 
   buildSignUpText() => Row(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
       Text(l10n.dontHaveAccount, style: Theme.of(context).textTheme.labelSmall),
-      Text(
-        l10n.createAccount,
-        style: Theme.of(context).textTheme.labelMedium!.copyWith(
-          fontStyle: FontStyle.italic,
-          decoration: TextDecoration.underline,
+      InkWell(
+        onTap: () {
+          Navigator.push(context, AppRoutes.register);
+        },
+        child: Text(
+          l10n.createAccount,
+          style: Theme.of(context).textTheme.labelMedium!.copyWith(
+            fontStyle: FontStyle.italic,
+            decoration: TextDecoration.underline,
+          ),
         ),
       ),
     ],

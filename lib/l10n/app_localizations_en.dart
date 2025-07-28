@@ -18,7 +18,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get forgetPassword => 'Forget Password';
 
   @override
-  String get createAccount => ' Create Account ?';
+  String get createAccount => ' Create Account ? ';
 
   @override
   String get loginButton => 'Login';
@@ -31,4 +31,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get loginWithGoogle => 'Login with Google';
+
+  @override
+  String get nameHint => 'Name';
+
+  @override
+  String get alreadyHaveAccount => 'Already Have Account?';
+
+  @override
+  String get createAccountt => 'Create Account';
+
+  @override
+  String get rePassword => 'Re Password';
 }

@@ -19,4 +19,5 @@ class AppAssets {
   static const String bikeIc = "assets/images/bike.png";
   static const String cakeIc = "assets/images/cake.png";
   static const String noteIc = "assets/images/Note_Edit.png";
+  static const String userr = "assets/images/userr.png";
 }

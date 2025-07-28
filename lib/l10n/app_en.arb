@@ -2,9 +2,13 @@
     "emailHint" : "Email",
     "passwordHint" : "Password",
     "forgetPassword" : "Forget Password",
-    "createAccount" : " Create Account ?",
+    "createAccount" : " Create Account ? ",
     "loginButton" : "Login",
     "dontHaveAccount" : "Dont Have Account ?",
     "orText" : "Or",
-    "loginWithGoogle" : "Login with Google"
+    "loginWithGoogle" : "Login with Google",
+    "nameHint" : "Name",
+    "alreadyHaveAccount" : "Already Have Account?",
+    "createAccountt" : "Create Account",
+    "rePassword" : "Re Password"
 }

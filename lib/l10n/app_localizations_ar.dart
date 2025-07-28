@@ -31,4 +31,16 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get loginWithGoogle => 'تسجيل الدخول باستخدام جوجل';
+
+  @override
+  String get nameHint => 'الأسم';
+
+  @override
+  String get alreadyHaveAccount => 'بالفعل لديك حساب';
+
+  @override
+  String get createAccountt => 'انشاء حساب';
+
+  @override
+  String get rePassword => 'اعادة كلمةالمرور';
 }
