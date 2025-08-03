@@ -14,7 +14,7 @@ class EventWidget extends StatelessWidget {
       margin: EdgeInsets.all(8),
 
       decoration: BoxDecoration(
-        image: DecorationImage(image: AssetImage(eventDM.image)),
+        image: DecorationImage(image: AssetImage("")),
         color: Colors.black,
       ),
       child: Column(
@@ -33,7 +33,7 @@ class EventWidget extends StatelessWidget {
       borderRadius: BorderRadius.circular(8),
     ),
     child: Text(
-      eventDM.date,
+      eventDM.date.toString(),
       style: TextStyle(
         color: AppColors.purple,
         fontSize: 20,
@@ -60,11 +60,7 @@ class EventWidget extends StatelessWidget {
           ),
         ),
         Spacer(),
-        ImageIcon(
-          AssetImage(
-            eventDM.isFavorite ? AppAssets.heartActive : AppAssets.heartIc,
-          ),
-        ),
+        ImageIcon(AssetImage(true ? AppAssets.heartActive : AppAssets.heartIc)),
       ],
     ),
   );

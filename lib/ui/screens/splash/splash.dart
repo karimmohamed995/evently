@@ -15,7 +15,7 @@ class _SplashState extends State<Splash> {
     // TODO: implement initState
     super.initState();
     Future.delayed(Duration(seconds: 2), () {
-      Navigator.push(context, AppRoutes.login);
+      Navigator.push(context, AppRoutes.onboardingScreen);
     });
   }
 

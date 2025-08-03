@@ -12,7 +12,8 @@
           "package_name": "com.example.evently"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCQlJFEY-SawIbGxYqWpxy2rgRcEl3zD7s"

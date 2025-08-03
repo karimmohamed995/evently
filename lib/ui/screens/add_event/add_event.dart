@@ -1,4 +1,5 @@
 import 'package:evently/model/category_dm.dart';
+import 'package:evently/model/event_dm.dart';
 import 'package:evently/ui/utilities/app_assets.dart';
 import 'package:evently/ui/utilities/app_colors.dart';
 import 'package:evently/ui/widgets/category_tabs.dart';
@@ -16,6 +17,14 @@ class AddEvent extends StatefulWidget {
 
 class _AddEventState extends State<AddEvent> {
   late AppLocalizations l10n;
+
+  TextEditingController titleController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
+  CategoryDM selectedCategory = CategoryDM.createEventsCategories[0];
+  DateTime selectedDate = DateTime.now();
+  TimeOfDay selectedTime = TimeOfDay.now();
+  // TimeOfDay selectedTime = TimeOfDay.now();
+
   @override
   Widget build(BuildContext context) {
     l10n = AppLocalizations.of(context)!;
@@ -65,7 +74,7 @@ class _AddEventState extends State<AddEvent> {
   buildCategoryTabs() => CategoryTabs(
     categories: CategoryDM.createEventsCategories,
     onTabSelected: (category) {
-      print(category.title);
+      selectedCategory = category;
     },
     selectedTabBg: AppColors.purple,
     selectedTabTextColor: AppColors.white,
@@ -89,6 +98,7 @@ class _AddEventState extends State<AddEvent> {
         // hint: l10n.passwordHint,
         hint: "Event Title",
         prefixIcon: AppAssets.noteIc,
+        controller: titleController,
       ),
     ],
   );
@@ -109,59 +119,91 @@ class _AddEventState extends State<AddEvent> {
         // hint: l10n.passwordHint,
         hint: "Description",
         minLines: 5,
+        controller: descriptionController,
       ),
     ],
   );
 
-  buildEventDate() => Row(
-    children: [
-      Icon(Icons.calendar_month),
-      SizedBox(width: 8),
-      Text(
-        "Event Date",
-        style: TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.w500,
-          color: AppColors.black,
+  buildEventDate() => InkWell(
+    onTap: () async {
+      selectedDate =
+          (await showDatePicker(
+            context: context,
+            firstDate: DateTime.now(),
+            initialDate: selectedDate,
+            lastDate: DateTime.now().add(Duration(days: 365)),
+          )) ??
+          selectedDate;
+    },
+    child: Row(
+      children: [
+        Icon(Icons.calendar_month),
+        SizedBox(width: 8),
+        Text(
+          "Event Date",
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+            color: AppColors.black,
+          ),
         ),
-      ),
-      Spacer(),
-      Text(
-        "Choose Date",
-        style: TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.w500,
-          color: AppColors.purple,
+        Spacer(),
+        Text(
+          "Choose Date",
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+            color: AppColors.purple,
+          ),
         ),
-      ),
-    ],
+      ],
+    ),
   );
 
-  buildEventTime() => Row(
-    children: [
-      Icon(Icons.access_time),
-      SizedBox(width: 8),
-      Text(
-        "Event Time",
-        style: TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.w500,
-          color: AppColors.black,
+  buildEventTime() => InkWell(
+    onTap: () async {
+      selectedTime =
+          (await showTimePicker(context: context, initialTime: selectedTime)) ??
+          selectedTime;
+    },
+    child: Row(
+      children: [
+        Icon(Icons.access_time),
+        SizedBox(width: 8),
+        Text(
+          "Event Time",
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+            color: AppColors.black,
+          ),
         ),
-      ),
-      Spacer(),
-      Text(
-        "Choose Time",
-        style: TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.w500,
-          color: AppColors.purple,
+        Spacer(),
+        Text(
+          "Choose Time",
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+            color: AppColors.purple,
+          ),
         ),
-      ),
-    ],
+      ],
+    ),
   );
 
   buildEventLocation() => Container();
 
-  buildAddEventButton() => CustomButton(text: "Add Event", onClick: () {});
+  buildAddEventButton() => CustomButton(
+    text: "Add Event",
+    onClick: () {
+      EventDM eventDM = EventDM(
+        id: "",
+        title: titleController.text,
+        categoryId: selectedCategory.title,
+        date: selectedDate,
+        description: descriptionController.text,
+        time: selectedTime,
+      );
+    },
+  );
 }

@@ -1,5 +1,6 @@
 import 'package:animated_toggle_switch/animated_toggle_switch.dart';
 import 'package:evently/l10n/app_localizations.dart';
+import 'package:evently/services/auth_service.dart';
 import 'package:evently/ui/providers/language_provider.dart';
 import 'package:evently/ui/providers/theme_provider.dart';
 import 'package:evently/ui/utilities/app_assets.dart';
@@ -11,6 +12,7 @@ import 'package:evently/ui/widgets/custom_text_field.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -56,11 +58,11 @@ class _LoginState extends State<Register> {
               SizedBox(height: 16),
               buildRetypePasswordTextField(),
               SizedBox(height: 16),
-              buildForgetPasswordText(context),
+              // buildForgetPasswordText(context),
               SizedBox(height: 24),
-              buildRegisterButton(),
+              // buildRegisterButton(),
               SizedBox(height: 24),
-              buildSignUpText(),
+              // buildSignUpText(),
               SizedBox(height: 24),
               buildOrRow(),
               SizedBox(height: 24),
@@ -193,16 +195,24 @@ class _LoginState extends State<Register> {
   buildGoogleLogin() => CustomButton(
     image: Image.asset(AppAssets.googleIcon, width: 24, height: 24),
     text: l10n.loginWithGoogle,
-    onClick: () {
-      //show loading
-      //  Register
-      //if success go home
-      //else show error
+    onClick: () async {
+      showLoading(context);
+      try {
+        final userCredential = await AuthService().signInWithGoogle();
+
+        Navigator.pop(context); // remove loading
+
+        // navigate to home
+        Navigator.pushReplacement(context, AppRoutes.home);
+      } catch (e) {
+        Navigator.pop(context); // remove loading
+        showMessage(
+          context,
+          content: "Error Register with Google\n$e",
+          posBtnTitle: "Ok",
+        );
+      }
     },
-    // backgroundcolor: Theme.of(context).brightness == Brightness.dark
-    //     ? AppColors
-    //           .darkPurple // اللون في الـ dark mode
-    //     : AppColors.white,
     backgroundcolor: AppColors.white,
     textColor: AppColors.purple,
   );

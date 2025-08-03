@@ -21,8 +21,21 @@ dependencies:
   intl: any
   animated_toggle_switch: ^0.8.5
   provider: ^6.1.5
-  firebase_core: ^2.30.0
-  firebase_auth: ^4.16.0
+  # firebase_core: ^2.30.0
+  # firebase_auth: ^4.16.0
+  # cloud_firestore: ^4.17.5
+  # firebase_core: ^2.25.4
+  # firebase_auth: ^4.17.4
+  # cloud_firestore: ^4.17.5
+  # firebase_core: ^2.30.0
+  # firebase_auth: ^4.16.0
+  cloud_firestore: ^4.17.5
+  # google_sign_in: ^7.1.1
+
+  firebase_core: ^2.27.0
+  firebase_auth: ^4.17.4
+  google_sign_in: ^6.2.1
+  
 
 dev_dependencies:
   flutter_test:
