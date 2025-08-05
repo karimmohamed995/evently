@@ -20,4 +20,14 @@ class AppAssets {
   static const String cakeIc = "assets/images/cake.png";
   static const String noteIc = "assets/images/Note_Edit.png";
   static const String userr = "assets/images/userr.png";
+
+  static const String birthday = "assets/images/birthday.png";
+  static const String bookClub = "assets/images/bookclub.png";
+  static const String eating = "assets/images/eating.png";
+  static const String workShop = "assets/images/workshop.png";
+  static const String sports = "assets/images/sports.png";
+  static const String meeting = "assets/images/meeting.png";
+  static const String holiday = "assets/images/holiday.png";
+  static const String gaming = "assets/images/gaming.png";
+  static const String exhibition = "assets/images/exhibition.png";
 }

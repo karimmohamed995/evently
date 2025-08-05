@@ -1,3 +1,4 @@
+import 'package:evently/model/category_dm.dart';
 import 'package:evently/model/event_dm.dart';
 import 'package:evently/ui/utilities/app_assets.dart';
 import 'package:evently/ui/utilities/app_colors.dart';
@@ -9,12 +10,14 @@ class EventWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    CategoryDM categoryDM = CategoryDM.fromTitle(eventDM.categoryId);
     return Container(
       height: MediaQuery.of(context).size.height * 0.3,
       margin: EdgeInsets.all(8),
 
       decoration: BoxDecoration(
-        image: DecorationImage(image: AssetImage("")),
+        image: DecorationImage(image: AssetImage(categoryDM.imageBg)),
+        borderRadius: BorderRadius.circular(16),
         color: Colors.black,
       ),
       child: Column(
@@ -32,15 +35,45 @@ class EventWidget extends StatelessWidget {
       color: AppColors.white,
       borderRadius: BorderRadius.circular(8),
     ),
-    child: Text(
-      eventDM.date.toString(),
-      style: TextStyle(
-        color: AppColors.purple,
-        fontSize: 20,
-        fontWeight: FontWeight.bold,
-      ),
+    child: Column(
+      children: [
+        Text(
+          eventDM.date.day.toString(),
+          style: TextStyle(
+            color: AppColors.purple,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        Text(
+          getMonthName(eventDM.date.month),
+          style: TextStyle(
+            color: AppColors.purple,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ],
     ),
   );
+
+  String getMonthName(int month) {
+    const List<String> months = [
+      "jan",
+      "feb",
+      "mar",
+      "apr",
+      "may",
+      "jun",
+      "jul",
+      "aug",
+      "sep",
+      "oct",
+      "nov",
+      "dec",
+    ];
+    return months[month - 1];
+  }
 
   buildTitle() => Container(
     margin: EdgeInsets.all(8),

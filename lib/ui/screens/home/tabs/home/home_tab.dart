@@ -1,14 +1,24 @@
+// import 'dart:nativewrappers/_internal/vm/lib/mirrors_patch.dart';
+
+import 'package:evently/data/firestore_utils.dart';
 import 'package:evently/model/category_dm.dart';
-import 'package:evently/model/event_dm.dart';
-import 'package:evently/ui/utilities/app_assets.dart';
+// import 'package:evently/model/event_dm.dart';
+import 'package:evently/model/user_dm.dart';
+// import 'package:evently/ui/utilities/app_assets.dart';
 import 'package:evently/ui/utilities/app_colors.dart';
 import 'package:evently/ui/widgets/category_tabs.dart';
 import 'package:evently/ui/widgets/event_widget.dart';
 import 'package:flutter/material.dart';
 
-class HomeTab extends StatelessWidget {
+class HomeTab extends StatefulWidget {
   const HomeTab({super.key});
 
+  @override
+  State<HomeTab> createState() => _HomeTabState();
+}
+
+class _HomeTabState extends State<HomeTab> {
+  CategoryDM selectedCategory = CategoryDM.homeCategories[0];
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -43,7 +53,7 @@ class HomeTab extends StatelessWidget {
             style: TextStyle(fontSize: 14, color: Colors.white),
           ),
           Text(
-            "John Safwat",
+            UserDM.currentUser!.name,
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 24,
@@ -71,7 +81,8 @@ class HomeTab extends StatelessWidget {
   buildCategoriesTabs() => CategoryTabs(
     categories: CategoryDM.homeCategories,
     onTabSelected: (category) {
-      print(category.title);
+      selectedCategory = category;
+      setState(() {});
     },
     selectedTabBg: Colors.white,
     selectedTabTextColor: AppColors.purple,
@@ -79,19 +90,55 @@ class HomeTab extends StatelessWidget {
     unselectedTabTextColor: AppColors.white,
   );
 
-  buildEventsList() => ListView.builder(
-    itemCount: 20,
-    itemBuilder: (context, index) => EventWidget(
-      eventDM: EventDM(
-        id: "",
-        title: "this is birthday party",
-        categoryId: AppAssets.logoHorizontal,
-        date: DateTime.now(),
-        description: "description",
-        time: TimeOfDay.now(),
-        lat: 0,
-        lng: 0,
-      ),
-    ),
+  // buildEventsList() => ListView.builder(
+  // buildEventsList() => FutureBuilder(
+  //   future: getAllEventsFromFirestore(),
+  //   builder: (context, snapshot) {
+  //     if (snapshot.hasError) {
+  //       return Center(child: Text(snapshot.error.toString()));
+  //     } else if (snapshot.hasData) {
+  //       var events = snapshot.data!;
+
+  //       if (selectedCategory.title != "All") {
+  //         events.where((event) {
+  //           return event.categoryId == selectedCategory.title;
+  //         }).toList();
+  //       }
+
+  //       return ListView.builder(
+  //         itemCount: events.length,
+  //         itemBuilder: (context, index) {
+  //           return EventWidget(eventDM: events[index]);
+  //         },
+  //       );
+  //     } else {
+  //       return Center(child: CircularProgressIndicator());
+  //     }
+  //   },
+  // );
+  buildEventsList() => FutureBuilder(
+    future: getAllEventsFromFirestore(),
+    builder: (context, snapshot) {
+      if (snapshot.hasError) {
+        return Center(child: Text(snapshot.error.toString()));
+      } else if (snapshot.hasData) {
+        var events = snapshot.data!;
+
+        if (selectedCategory.title != "All") {
+          events = events.where((event) {
+            return event.categoryId == selectedCategory.title;
+          }).toList();
+        }
+
+        return ListView.builder(
+          itemCount: events.length,
+          itemBuilder: (context, index) {
+            return EventWidget(eventDM: events[index]);
+          },
+        );
+      } else {
+        return Center(child: CircularProgressIndicator());
+      }
+    },
   );
 }

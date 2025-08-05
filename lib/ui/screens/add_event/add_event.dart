@@ -1,7 +1,10 @@
+import 'package:evently/data/firestore_utils.dart';
 import 'package:evently/model/category_dm.dart';
 import 'package:evently/model/event_dm.dart';
+import 'package:evently/model/user_dm.dart';
 import 'package:evently/ui/utilities/app_assets.dart';
 import 'package:evently/ui/utilities/app_colors.dart';
+import 'package:evently/ui/utilities/dialog_utils.dart';
 import 'package:evently/ui/widgets/category_tabs.dart';
 import 'package:evently/ui/widgets/custom_button.dart';
 import 'package:evently/ui/widgets/custom_text_field.dart';
@@ -30,32 +33,34 @@ class _AddEventState extends State<AddEvent> {
     l10n = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: buildAppBar(),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          /// de 3shan kol el msafat el bnhom sabta gher kda ahot sized box mben kol haga wel tanya
-          spacing: 16,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            /// de 3shan kol el msafat el bnhom sabta gher kda ahot sized box mben kol haga wel tanya
+            spacing: 16,
 
-          children: [
-            buildCategoryImage(),
-            buildCategoryTabs(),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.start,
-            //   children: [
-            //     Text(
-            //       "Title",
-            //       style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-            //     ),
-            //   ],
-            // ),
-            buildTitleTextField(),
-            buildDescriptionTextField(),
-            buildEventDate(),
-            buildEventTime(),
-            buildEventLocation(),
-            Spacer(),
-            buildAddEventButton(),
-          ],
+            children: [
+              buildCategoryImage(),
+              buildCategoryTabs(),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.start,
+              //   children: [
+              //     Text(
+              //       "Title",
+              //       style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+              //     ),
+              //   ],
+              // ),
+              buildTitleTextField(),
+              buildDescriptionTextField(),
+              buildEventDate(),
+              buildEventTime(),
+              buildEventLocation(),
+              // Spacer(),
+              buildAddEventButton(),
+            ],
+          ),
         ),
       ),
     );
@@ -66,7 +71,8 @@ class _AddEventState extends State<AddEvent> {
   buildCategoryImage() => ClipRRect(
     borderRadius: BorderRadius.circular(16),
     child: Image.asset(
-      AppAssets.logoHorizontal,
+      selectedCategory.imageBg,
+
       height: MediaQuery.of(context).size.height * 0.25,
     ),
   );
@@ -75,6 +81,7 @@ class _AddEventState extends State<AddEvent> {
     categories: CategoryDM.createEventsCategories,
     onTabSelected: (category) {
       selectedCategory = category;
+      setState(() {});
     },
     selectedTabBg: AppColors.purple,
     selectedTabTextColor: AppColors.white,
@@ -195,15 +202,27 @@ class _AddEventState extends State<AddEvent> {
 
   buildAddEventButton() => CustomButton(
     text: "Add Event",
-    onClick: () {
+    onClick: () async {
+      showLoading(context);
+      selectedDate = DateTime(
+        selectedDate.year,
+        selectedDate.month,
+        selectedDate.day,
+        selectedTime.hour,
+        selectedTime.minute,
+      );
       EventDM eventDM = EventDM(
         id: "",
         title: titleController.text,
         categoryId: selectedCategory.title,
         date: selectedDate,
         description: descriptionController.text,
-        time: selectedTime,
+        // time: selectedTime,
+        ownerId: UserDM.currentUser!.id,
       );
+      await addEventToFirestore(eventDM);
+      Navigator.pop(context);
+      Navigator.pop(context);
     },
   );
 }

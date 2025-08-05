@@ -11,99 +11,105 @@ class CategoryDM {
     CategoryDM(
       image: AppAssets.compassIc,
       title: "All",
-      imageBg: AppAssets.logoHorizontal,
+      imageBg: AppAssets.sports,
     ),
     CategoryDM(
       image: AppAssets.bikeIc,
       title: "Sport",
-      imageBg: AppAssets.logoHorizontal,
+      imageBg: AppAssets.sports,
     ),
     CategoryDM(
       image: AppAssets.cakeIc,
       title: "Birthday",
-      imageBg: AppAssets.logoHorizontal,
+      imageBg: AppAssets.birthday,
     ),
     CategoryDM(
       image: AppAssets.bikeIc,
       title: "Meeting",
-      imageBg: AppAssets.logoHorizontal,
+      imageBg: AppAssets.meeting,
     ),
     CategoryDM(
       image: AppAssets.bikeIc,
       title: "Gaming",
-      imageBg: AppAssets.logoHorizontal,
+      imageBg: AppAssets.gaming,
     ),
     CategoryDM(
       image: AppAssets.bikeIc,
       title: "Eating",
-      imageBg: AppAssets.logoHorizontal,
+      imageBg: AppAssets.eating,
     ),
     CategoryDM(
       image: AppAssets.bikeIc,
       title: "Holiday",
-      imageBg: AppAssets.logoHorizontal,
+      imageBg: AppAssets.holiday,
     ),
     CategoryDM(
       image: AppAssets.bikeIc,
       title: "Exhibition",
-      imageBg: AppAssets.logoHorizontal,
+      imageBg: AppAssets.exhibition,
     ),
     CategoryDM(
       image: AppAssets.bikeIc,
       title: "WorkShop",
-      imageBg: AppAssets.logoHorizontal,
+      imageBg: AppAssets.workShop,
     ),
     CategoryDM(
       image: AppAssets.bikeIc,
       title: "BookClub",
-      imageBg: AppAssets.logoHorizontal,
+      imageBg: AppAssets.bookClub,
     ),
   ];
   static List<CategoryDM> createEventsCategories = [
     CategoryDM(
       image: AppAssets.bikeIc,
       title: "Sport",
-      imageBg: AppAssets.logoHorizontal,
+      imageBg: AppAssets.sports,
     ),
     CategoryDM(
       image: AppAssets.cakeIc,
       title: "Birthday",
-      imageBg: AppAssets.logoHorizontal,
+      imageBg: AppAssets.birthday,
     ),
     CategoryDM(
       image: AppAssets.bikeIc,
       title: "Meeting",
-      imageBg: AppAssets.logoHorizontal,
+      imageBg: AppAssets.meeting,
     ),
     CategoryDM(
       image: AppAssets.bikeIc,
       title: "Gaming",
-      imageBg: AppAssets.logoHorizontal,
+      imageBg: AppAssets.gaming,
     ),
     CategoryDM(
       image: AppAssets.bikeIc,
       title: "Eating",
-      imageBg: AppAssets.logoHorizontal,
+      imageBg: AppAssets.eating,
     ),
     CategoryDM(
       image: AppAssets.bikeIc,
       title: "Holiday",
-      imageBg: AppAssets.logoHorizontal,
+      imageBg: AppAssets.holiday,
     ),
     CategoryDM(
       image: AppAssets.bikeIc,
       title: "Exhibition",
-      imageBg: AppAssets.logoHorizontal,
+      imageBg: AppAssets.exhibition,
     ),
     CategoryDM(
       image: AppAssets.bikeIc,
       title: "WorkShop",
-      imageBg: AppAssets.logoHorizontal,
+      imageBg: AppAssets.workShop,
     ),
     CategoryDM(
       image: AppAssets.bikeIc,
       title: "BookClub",
-      imageBg: AppAssets.logoHorizontal,
+      imageBg: AppAssets.bookClub,
     ),
   ];
+
+  static CategoryDM fromTitle(String title) {
+    return homeCategories.firstWhere((category) {
+      return title == category.title;
+    });
+  }
 }

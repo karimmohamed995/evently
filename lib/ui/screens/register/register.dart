@@ -1,5 +1,7 @@
 import 'package:animated_toggle_switch/animated_toggle_switch.dart';
+import 'package:evently/data/firestore_utils.dart';
 import 'package:evently/l10n/app_localizations.dart';
+import 'package:evently/model/user_dm.dart';
 import 'package:evently/services/auth_service.dart';
 import 'package:evently/ui/providers/language_provider.dart';
 import 'package:evently/ui/providers/theme_provider.dart';
@@ -12,7 +14,7 @@ import 'package:evently/ui/widgets/custom_text_field.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+// import 'package:google_sign_in/google_sign_in.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -58,16 +60,16 @@ class _LoginState extends State<Register> {
               SizedBox(height: 16),
               buildRetypePasswordTextField(),
               SizedBox(height: 16),
-              // buildForgetPasswordText(context),
+              buildForgetPasswordText(context),
               SizedBox(height: 24),
-              // buildRegisterButton(),
+              buildRegisterButton(),
               SizedBox(height: 24),
-              // buildSignUpText(),
+              buildSignUpText(),
               SizedBox(height: 24),
-              buildOrRow(),
-              SizedBox(height: 24),
-              buildGoogleLogin(),
-              SizedBox(height: 24),
+              // buildOrRow(),
+              // SizedBox(height: 24),
+              // buildGoogleLogin(),
+              // SizedBox(height: 24),
               buildLanguageToggle(),
               // SizedBox(height: 24),
               // buildThemeToggle(),
@@ -141,7 +143,15 @@ class _LoginState extends State<Register> {
               email: emailController.text,
               password: passwordController.text,
             );
+
+        UserDM.currentUser = UserDM(
+          id: userCredential.user!.uid,
+          name: userNameController.text,
+          email: emailController.text,
+        );
+        addUserToFirestore(UserDM.currentUser!);
         Navigator.pop(context); // hide loading
+
         Navigator.push(context, AppRoutes.home);
       } on FirebaseAuthException catch (e) {
         var message = "email or password wrong";

@@ -1,5 +1,7 @@
 import 'package:animated_toggle_switch/animated_toggle_switch.dart';
+import 'package:evently/data/firestore_utils.dart';
 import 'package:evently/l10n/app_localizations.dart';
+import 'package:evently/model/user_dm.dart';
 import 'package:evently/ui/providers/language_provider.dart';
 import 'package:evently/ui/providers/theme_provider.dart';
 import 'package:evently/ui/utilities/app_assets.dart';
@@ -112,6 +114,9 @@ class _LoginState extends State<Login> {
               email: emailController.text,
               password: passwordController.text,
             );
+        UserDM.currentUser = await getFromUserFirestore(
+          userCredential.user!.uid,
+        );
         Navigator.pop(context); // hide loading
         Navigator.push(context, AppRoutes.home);
       } on FirebaseAuthException catch (e) {
