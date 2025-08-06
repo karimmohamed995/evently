@@ -1,16 +1,25 @@
+import 'package:evently/data/firestore_utils.dart';
 import 'package:evently/model/category_dm.dart';
 import 'package:evently/model/event_dm.dart';
+import 'package:evently/model/user_dm.dart';
 import 'package:evently/ui/utilities/app_assets.dart';
 import 'package:evently/ui/utilities/app_colors.dart';
 import 'package:flutter/material.dart';
 
-class EventWidget extends StatelessWidget {
+class EventWidget extends StatefulWidget {
   final EventDM eventDM;
-  const EventWidget({super.key, required this.eventDM});
+
+  final Function? onFavClick;
+  const EventWidget({super.key, required this.eventDM, this.onFavClick});
 
   @override
+  State<EventWidget> createState() => _EventWidgetState();
+}
+
+class _EventWidgetState extends State<EventWidget> {
+  @override
   Widget build(BuildContext context) {
-    CategoryDM categoryDM = CategoryDM.fromTitle(eventDM.categoryId);
+    CategoryDM categoryDM = CategoryDM.fromTitle(widget.eventDM.categoryId);
     return Container(
       height: MediaQuery.of(context).size.height * 0.3,
       margin: EdgeInsets.all(8),
@@ -38,7 +47,7 @@ class EventWidget extends StatelessWidget {
     child: Column(
       children: [
         Text(
-          eventDM.date.day.toString(),
+          widget.eventDM.date.day.toString(),
           style: TextStyle(
             color: AppColors.purple,
             fontSize: 20,
@@ -46,7 +55,7 @@ class EventWidget extends StatelessWidget {
           ),
         ),
         Text(
-          getMonthName(eventDM.date.month),
+          getMonthName(widget.eventDM.date.month),
           style: TextStyle(
             color: AppColors.purple,
             fontSize: 20,
@@ -85,7 +94,7 @@ class EventWidget extends StatelessWidget {
     child: Row(
       children: [
         Text(
-          eventDM.title,
+          widget.eventDM.title,
           style: TextStyle(
             color: AppColors.black,
             fontSize: 20,
@@ -93,8 +102,27 @@ class EventWidget extends StatelessWidget {
           ),
         ),
         Spacer(),
-        ImageIcon(AssetImage(true ? AppAssets.heartActive : AppAssets.heartIc)),
+        buildFavIcon(),
       ],
     ),
   );
+
+  Widget buildFavIcon() {
+    var isFavorite = UserDM.currentUser!.favoriteEvents.contains(
+      widget.eventDM.id,
+    );
+    return InkWell(
+      onTap: () async {
+        widget.onFavClick?.call();
+        isFavorite
+            ? await removeEventToFavorite(widget.eventDM.id)
+            : await addEventToFavorite(widget.eventDM.id);
+        setState(() {});
+      },
+      child: ImageIcon(
+        AssetImage(isFavorite ? AppAssets.heartActive : AppAssets.heartIc),
+        color: AppColors.purple,
+      ),
+    );
+  }
 }

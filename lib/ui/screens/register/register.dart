@@ -148,6 +148,7 @@ class _LoginState extends State<Register> {
           id: userCredential.user!.uid,
           name: userNameController.text,
           email: emailController.text,
+          favoriteEvents: [],
         );
         addUserToFirestore(UserDM.currentUser!);
         Navigator.pop(context); // hide loading

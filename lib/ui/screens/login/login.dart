@@ -118,7 +118,7 @@ class _LoginState extends State<Login> {
           userCredential.user!.uid,
         );
         Navigator.pop(context); // hide loading
-        Navigator.push(context, AppRoutes.home);
+        Navigator.pushReplacement(context, AppRoutes.home);
       } on FirebaseAuthException catch (e) {
         // var message = "email or password wrong";
         var message =
